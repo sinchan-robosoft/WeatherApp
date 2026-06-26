@@ -1,21 +1,17 @@
 import AxiosInstance from "@/Axios/AxiosInstance";
-
-//const apiKey = "c311e78b5e3f40b9863120130262406" //api.weather
-const apiKey = "d284bcfbf4a27faaeda5abe0c187a8d4"
+const apiKey = process.env.EXPO_PUBLIC_API_KEY
+const GEO_CODING_URL = process.env.EXPO_PUBLIC_GEO_CODING_URL
+const CURRENT_WEATHER_URL = process.env.EXPO_PUBLIC_CURRENT_WEATHER_URL
 
 export const getSearchData = async (searchString: string) => {
-    // if(searchString.length <=0){
-    //     return null
-    // }
-    console.log(searchString)
   const { data: places } = await AxiosInstance.get(
-    `https://api.openweathermap.org/geo/1.0/direct?q=${searchString}&limit=5&appid=${apiKey}`
+    `${GEO_CODING_URL}?q=${searchString}&limit=5&appid=${apiKey}`
   );
 
   const weatherData = await Promise.all(
     places.map(async (place: any,index : Number) => {
       const { data: weather } = await AxiosInstance.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${place.lat}&lon=${place.lon}&units=metric&appid=${apiKey}`
+        `${CURRENT_WEATHER_URL}?lat=${place.lat}&lon=${place.lon}&units=metric&appid=${apiKey}`
       );
 
       return {
