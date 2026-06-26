@@ -9,7 +9,7 @@ export default function WeatherScreen() {
       day : "Today",
       desc : "Mostly bright",
       imageUrl : "",
-      text : "29 / 18",
+      text : "29 \u00B0 / 18 \u00B0",
       icon : "Sun",
       iconColor : "#FE9A00"
     },
@@ -17,7 +17,7 @@ export default function WeatherScreen() {
       day : "Tue",
       desc : "Mostly bright",
       imageUrl : "",
-      text : "28 / 17",
+      text : "28 \u00B0 / 17 \u00B0",
       icon : "Sun",
       iconColor : "#FE9A00"
     },
@@ -25,7 +25,7 @@ export default function WeatherScreen() {
       day : "Wed",
       desc : "Showers late",
       imageUrl : "",
-      text : "27 / 16",
+      text : "27 \u00B0 / 16 \u00B0",
       icon : "Sun",
       iconColor : "#FE9A00"
     },
@@ -33,7 +33,7 @@ export default function WeatherScreen() {
       day : "Thu",
       desc : "Mostly bright",
       imageUrl : "",
-      text : "26 / 15",
+      text : "26 \u00B0 / 15 \u00B0",
       icon : "Sun",
       iconColor : "#FE9A00"
     },
@@ -41,7 +41,7 @@ export default function WeatherScreen() {
       day : "Fri",
       desc : "Mostly bright",
       imageUrl : "",
-      text : "25 / 14",
+      text : "25 \u00B0 / 14 \u00B0",
       icon : "Sun",
       iconColor : "#FE9A00"
     }

@@ -9,15 +9,18 @@ const EnhancedRadarRail = () => {
       className='flex-1'
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 0 }}
+      contentContainerStyle={{ padding: 12 }}
     >
-      <View className='flex items-center w-[300px] md:w-1/2'>
+      <View className='flex flex-row gap-3'>
+        <View className='flex items-center w-[300px] md:w-1/2'>
         <LiveRadar />
       </View>
 
       <View className='w-[300px] md:w-1/2 mr-4 flex items-center'>
         <HourlyRail width={"w-full  h-full"} margin={"mt-2"} overwrite={"mx-0"} />
       </View>
+      </View>
+      
     </ScrollView>
   )
 }

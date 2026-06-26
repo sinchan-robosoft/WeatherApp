@@ -67,7 +67,7 @@ const HeroRail = () => {
               className="text-black font-bold"
             >
               {//24°
-                weatherData.degree+" °"
+                weatherData.degree+"°"
               }
             </Text>
           </View>

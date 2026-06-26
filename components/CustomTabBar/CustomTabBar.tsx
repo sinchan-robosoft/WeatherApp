@@ -1,27 +1,26 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import {
-  Home,
-  Map,
-  Search,
-  Umbrella
-} from "lucide-react-native";
+import { Home, Map, Search, Umbrella } from "lucide-react-native";
 import { Pressable, useWindowDimensions, View } from "react-native";
 
-const icons = [Home, Search, Umbrella, Map]; //, Sparkles
-
+const icons = [Home, Search, Umbrella, Map];
 
 export default function CustomTabBar({
   state,
-  descriptors,
   navigation,
 }: BottomTabBarProps) {
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
-const { width, height } = useWindowDimensions();
-const isLandscape = width > height;
   return (
-    <View className="absolute bottom-8 left-5 right-5">
+    <View
+      className={`absolute  ${
+        isLandscape ? "left-[25%] right-[25%] w-1/2 bottom-2" : "left-8 right-8 bottom-6"
+      }`}
+    >
       <View
-        className={`${isLandscape ? "h-12" : "h-20"} lg:h-8 md:h-8 bg-white rounded-full flex-row items-center justify-around`}
+        className={`${
+          isLandscape ? "h-14" : "h-16"
+        } bg-white rounded-full flex-row items-center justify-around`}
         style={{
           shadowColor: "#000",
           shadowOffset: { width: 0, height: 6 },
@@ -41,14 +40,13 @@ const isLandscape = width > height;
               className="items-center justify-center"
             >
               {focused ? (
-                <View style={{borderRadius : "30%"}} className=" p-3 bg-rose-600 items-center justify-center ">
+                <View className="bg-rose-600 rounded-full p-3 items-center justify-center">
                   <Icon size={isLandscape ? 18 : 22} color="white" />
                 </View>
               ) : (
-                <View className="p-3">
-                    <Icon size={isLandscape ? 18 : 22} color="#6B7280" />
+                <View className="p-2 items-center justify-center">
+                  <Icon size={isLandscape ? 18 : 22} color="#6B7280" />
                 </View>
-                
               )}
             </Pressable>
           );

@@ -13,16 +13,23 @@ const SavedGrid = () => {
   const isLandscape = width > height;
   const bottomPadding = isLandscape ? 500 : 150;
   return (
-    <ScrollView contentContainerStyle={{ paddingBottom: bottomPadding }} className=''>
+    <ScrollView
+  className="flex"
+  contentContainerStyle={{
+    paddingBottom: bottomPadding,
+    alignItems: isLandscape ? undefined : "center",
+    justifyContent: "center",
+  }}
+>
         <View className="flex-1 flex flex-col gap-2  h-screen w-screen">
       <View className='flex jus flex-col p-6'>
         <Text className='text-slate-500'>Map Layers</Text>
         <Text className='text-4xl font-bold'>Live Radar</Text>
       </View>
-      <View className='flex flex-col items-center'>
+      <View className='flex flex-col items-start '>
           <LiveRadar />
       </View>     
-      <View className='flex flex-row p-6 gap-2'>
+      <View className={`flex flex-row p-6 gap-2 ${isLandscape ? "w-[85%]" : "w-full"}`}>
         {
           [{
             key : "Storm ETA",

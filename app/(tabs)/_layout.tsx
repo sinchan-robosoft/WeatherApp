@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabLayout() {
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 ">
        <Header />
       <Tabs 
       screenOptions={{

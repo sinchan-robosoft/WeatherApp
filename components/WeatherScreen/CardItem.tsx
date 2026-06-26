@@ -1,6 +1,6 @@
 import * as Icons from 'lucide-react-native';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, useWindowDimensions } from 'react-native';
 
 
 const CardItem = (
@@ -13,9 +13,11 @@ const CardItem = (
   }
 ) => {
   const ElemIcon = Icons[icon];
+  const {width,height} = useWindowDimensions()
+  const isLandscape = width > height;
   return (
     
-    <View className='shadow-black shadow-lg border border-slate-300 flex flex-row w-full p-6 px-12 justify-between bg-white rounded-full items-center'>
+    <View className={`shadow-black shadow-lg border border-slate-300 flex flex-row ${isLandscape ? "w-[80%]" : "w-full"} p-6 px-12 justify-between bg-white rounded-full items-center`}>
         <View>
           <ElemIcon size={30} color={iconColor} />
         </View>

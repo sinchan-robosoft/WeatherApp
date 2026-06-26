@@ -7,6 +7,7 @@ export const getSearchData = async (searchString: string) => {
     // if(searchString.length <=0){
     //     return null
     // }
+    console.log(searchString)
   const { data: places } = await AxiosInstance.get(
     `https://api.openweathermap.org/geo/1.0/direct?q=${searchString}&limit=5&appid=${apiKey}`
   );

@@ -1,10 +1,13 @@
 import * as Icons from "lucide-react-native";
 import React from 'react';
-import { ImageBackground, Text, View } from 'react-native';
+import { ImageBackground, Text, useWindowDimensions, View } from 'react-native';
 
 const LiveRadar = () => {
+    const {height,width} = useWindowDimensions();
+      
+      const isLandscape = width > height;
     return (
-        <View className=" mt-3 w-[90%]">
+        <View className={` mt-3 ${ isLandscape ? "w-[85%]" : "w-full"} px-3`}>
             <View className="bg-white rounded-3xl p-5 flex flex-col gap-2">
 
                 <View className="flex-row justify-between items-start">

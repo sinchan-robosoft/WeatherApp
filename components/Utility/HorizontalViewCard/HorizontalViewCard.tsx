@@ -1,21 +1,26 @@
 import { insertCity, removeCity } from '@/store/Slices/SavedCitySlice/SavedCitySlice'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Heart } from "lucide-react-native"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 const HorizontalViewCard = ({item}) => {
 
   const dispatcher = useDispatch()
+  const [liked,setLiked] = useState(false)
+  useEffect(() => {
+    setLiked(item.isLiked)
+  },[item.isLiked])
 
   const handleOnPress = () => {
-    if (item.isLiked)
+    if (liked)
       dispatcher(removeCity(item.cityName))
     else{
       const temp = {...item,isLiked : true}
       dispatcher(insertCity(temp))
     }
+    setLiked(!liked)
   }
 
   return (
@@ -55,15 +60,16 @@ const HorizontalViewCard = ({item}) => {
                       className={`text-3xl font-bold  text-black
                           }`}
                   >
-                      {item.cityTemp}
+                    {item.cityTemp + "\u00B0"}
+                    
                   </Text>
                   <Pressable onPress={() => {
                     handleOnPress()
                     
                   }}>
                         <View style={{borderRadius : "100%"}} className='bg-[#C41B4626] rounded-full p-2'>
-                    { item.isLiked ? <Heart color="red"
-                          fill="red" size={15} className='text-rose-400' /> : <Heart color="black"
+                    { liked ? <Heart color="red"
+                          fill="red"  size={15} className='text-rose-400' /> : <Heart color="black"
                            size={15} className='text-rose-400' /> }
                   </View>
                   </Pressable>

@@ -2,11 +2,15 @@ import { getSearchData } from "@/api/searchAPI/Searchapi";
 import SavedCityComp from "@/components/SearchScreen/SavedCityComp/SavedCityComp";
 import TrendingNowComp from "@/components/SearchScreen/TrendingNowComp/TrendingNowComp";
 import HorizontalViewCard from "@/components/Utility/HorizontalViewCard/HorizontalViewCard";
-import { addToRecentKeys, removeKeys } from "@/store/Slices/RecentKeys/RecentKeySlice";
+import {
+  addToRecentKeys,
+  removeKeys,
+} from "@/store/Slices/RecentKeys/RecentKeySlice";
 import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react-native";
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Pressable,
   ScrollView,
   Text,
@@ -17,10 +21,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 export default function TabTwoScreen() {
-
   const dispatcher = useDispatch();
-
-  
 
   const [searchText, setText] = useState("");
 
@@ -33,19 +34,27 @@ export default function TabTwoScreen() {
     enabled: false,
   });
 
-  const savedCities = useSelector((state) => state.SavedCitySlice);
-  const recentKeys = useSelector((state) => state.RecentKeySlice)
+  const savedCities = useSelector((state: any) => state.SavedCitySlice);
+  const recentKeys = useSelector((state: any) => state.RecentKeySlice);
 
   const removeAllKeys = () => {
-    dispatcher(removeKeys())
-  }
+    dispatcher(removeKeys());
+  };
 
   const handlePress = () => {
-    if(searchText.length > 2)
-      dispatcher(addToRecentKeys(searchText))
-    refetch()
-  }
-  
+    if (searchText.length > 2) {
+      dispatcher(addToRecentKeys(searchText));
+      refetch();
+    }
+  };
+
+  const handlePressFromKeys = (item: string) => {
+    setText(item);
+    setTimeout(() => {
+      refetch();
+    }, 0);
+  };
+
   const trendingNow = [
     {
       cityName: "Reykjavik",
@@ -112,18 +121,14 @@ export default function TabTwoScreen() {
 
         <View className="px-6">
           <View className="flex-row items-center bg-white border border-gray-300 rounded-3xl px-4">
-            <Pressable onPress={() => handlePress()}>
+            <Pressable onPress={handlePress}>
               <Search size={20} color="#6B7280" />
             </Pressable>
-            
 
             <TextInput
               value={searchText}
               onChangeText={setText}
-              onSubmitEditing={() => {
-                handlePress()
-              
-              }}
+              onSubmitEditing={handlePress}
               placeholder="City, Country, or Airport"
               className={`flex-1 px-3 ${
                 isLandscape ? "py-2 text-sm" : "py-3 text-base"
@@ -134,32 +139,36 @@ export default function TabTwoScreen() {
           </View>
         </View>
 
+        {recentKeys?.length > 0 && (
+          <View>
+            <View className="flex-row justify-between p-6">
+              <Text className="text-slate-500">Recent</Text>
 
-        {recentKeys?.length > 0 ? <View>
+              <Pressable onPress={removeAllKeys}>
+                <Text className="text-slate-500">Clear all</Text>
+              </Pressable>
+            </View>
 
-
-          <View className="flex-row justify-between p-6">
-            <Text className="text-slate-500">Recent</Text>
-
-            <Pressable onPress={() => {
-              removeAllKeys()
-            }}>
-              <Text className="text-slate-500">Clear all</Text>
-            </Pressable>
+            <View className="flex-row flex-wrap gap-2 px-3">
+              {recentKeys.map((item: string, index: number) => (
+                <Pressable
+                  key={index}
+                  onPress={() => handlePressFromKeys(item)}
+                >
+                  <View className="bg-white p-3 border border-slate-200 rounded-3xl">
+                    <Text>{item}</Text>
+                  </View>
+                </Pressable>
+              ))}
+            </View>
           </View>
+        )}
 
-          <View className="flex-row flex-wrap gap-2 px-3">
-            {recentKeys.map((item, index) => (
-              <View
-                key={index}
-                className="bg-white p-3 border border-slate-200 rounded-3xl"
-              >
-                <Text>{item}</Text>
-              </View>
-            ))}
+        {isLoading ? (
+          <View className="items-center justify-center mt-10">
+            <ActivityIndicator size="large" color="#E11D48" />
           </View>
-        </View> : "" }
-        {data && !isLoading && searchText ? (
+        ) : data && searchText ? (
           <View
             className={`mt-3 px-2 ${
               isLandscape
@@ -178,9 +187,11 @@ export default function TabTwoScreen() {
           </View>
         ) : (
           <>
-            {savedCities && <View className="p-2">
-              <SavedCityComp data={savedCities} />
-            </View>}
+            {savedCities && (
+              <View className="p-2">
+                <SavedCityComp data={savedCities} />
+              </View>
+            )}
 
             <View className="p-2">
               <TrendingNowComp data={trendingNow} />

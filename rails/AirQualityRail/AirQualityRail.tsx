@@ -7,7 +7,7 @@ const AirQualityRail = () => {
   const { width ,height} = useWindowDimensions();
 
 const isLandscape = width > height;
-  const cardWidth = isLandscape ? (width - 62) /2 : (width - 32) / 2; 
+  const cardWidth = isLandscape ? (width - 100) /2 : (width - 32) / 2; 
   const iconSize = width * 0.06;
   const blobSize = width * 0.22;
 

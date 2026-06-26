@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Pressable, ScrollView, Text, View } from 'react-native'
+import { Pressable, ScrollView, Text, useWindowDimensions, View } from 'react-native'
 import Card from "./CustomCard/HourlyAtmosphereCard"
 import Description from "./DescriptionComp/Description"
 
@@ -82,8 +82,9 @@ const HourlyRail = ({setData,width,margin,overwrite} : {setData?: any,width?:Str
     },[selectedIndex])
     const w = width ? width : "w-full"
     const m = margin ? margin : "mt-12"
+    const isLandscape = useWindowDimensions().height < useWindowDimensions().width
   return (
-    <View className={` bg-white rounded-3xl  pb-8 border border-slate-300  ${w} ${m} ${overwrite}`}>
+    <View className={` bg-white rounded-3xl  pb-8 border border-slate-300  ${w} ${m} ${overwrite} ${isLandscape ? " w-[85%]" : ""}`}>
         <View className='flex flex-col'>
             <View className='flex gap-1 items-center flex-row justify-between p-12 '>
                 <View>
@@ -95,8 +96,8 @@ const HourlyRail = ({setData,width,margin,overwrite} : {setData?: any,width?:Str
                     </Text>
                 </View>
             </View>
-            <View className=" ">
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator = {false} className='w-full'>
+            <View className="bg-white ">
+                <ScrollView nestedScrollEnabled horizontal={true} showsHorizontalScrollIndicator = {false} className='w-full bg-white'>
                   <View className={` flex-row p-3 gap-2  `}>
                           {
                               cardData.map((item,index) => {

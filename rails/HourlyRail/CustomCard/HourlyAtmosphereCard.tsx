@@ -30,7 +30,7 @@ const HourlyAtmosphereCard = ({time,imageUrl,degree,rainPercent,isSelected,size,
         </View>
         <View>
           <Text className={textColor}>
-            {degree}
+            {degree + "\u00B0"}
           </Text>
         </View>
         <View>
